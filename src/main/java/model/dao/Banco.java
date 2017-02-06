@@ -12,8 +12,8 @@ public class Banco {
 	private static final String driver = "com.mysql.jdbc.Driver";
 	private static final String banco = "dbfarmacia";
 	private static final String conexao = "jdbc:mysql://localhost:3306/" + banco;
-	private static final String user = "root";
-	private static final String password = "1234";
+	private static final String user = "usuario";
+	private static final String password = "senha";
 	
 	public static Connection getConnection(){
 		try {
