@@ -68,22 +68,42 @@ public class ControladoraCliente {
 		return listaDTO;
 	}
 
-	public ClienteDTO consultarTodosClientesController(ClienteDTO dto) {
-		
+	public ArrayList<ClienteDTO> consultarClientesController(ClienteDTO dto) {
+
+
 		ClienteVO clienteVO = new ClienteVO();
 		clienteVO.setIdCliente(dto.getIdCliente());
-		
+
 		ClienteBO clienteBO = new ClienteBO();
-		ClienteVO resultadoClienteVO = clienteBO.consultarClienteBO(clienteVO);
-		
+		ArrayList<ClienteVO> clientesVO = clienteBO.consultarTodosClientesBO();
+		ArrayList<ClienteDTO> listaDTO = new ArrayList<ClienteDTO>();
+
+		for(int  i = 0;i < clientesVO.size();i++){
+			ClienteDTO clienteDTO = new ClienteDTO();
+			clienteDTO.setIdCliente(clientesVO.get(i).getIdCliente());
+			clienteDTO.setNome(clientesVO.get(i).getNome());
+			clienteDTO.setCpf(clientesVO.get(i).getCpf());
+
+			listaDTO.add(clienteDTO);
+
+		}
+
+
+		return listaDTO;
+
+
+		/*ClienteBO clienteBO = new ClienteBO();
+		ArrayList<ClienteVO> resultadoClienteVO = clienteBO.consultarClienteBO(clienteVO);
+
 		ClienteDTO clienteDTO = new ClienteDTO();
 		clienteDTO.setIdCliente(resultadoClienteVO.getIdCliente());
 		clienteDTO.setNome(resultadoClienteVO.getNome());
 		clienteDTO.setCpf(resultadoClienteVO.getCpf());
+
+
 		
-		
-		
-		return null;
+		return clienteDTO;*/
 	}
 
 }
+

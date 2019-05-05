@@ -1,11 +1,9 @@
 package model.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import model.vo.ClienteVO;
+import view.ClienteDTO;
 
 public class ClienteDAO {
 
@@ -122,11 +120,11 @@ public class ClienteDAO {
 		ResultSet resultado = null;
 		ArrayList<ClienteVO> clientesVO =  new ArrayList<ClienteVO>();
 		
-		String query = "SELECT * FROM cliente";
+		String query = "SELECT * FROM cliente order by  idcliente";
 		
 		try {
 			resultado = stmt.executeQuery(query);
-			while(resultado.next()){ //percorer ate o fim da tabela sem saber o tamaho
+			while(resultado.next()){ //percorer ate o fim da tabela sem saber o tamanho
 				ClienteVO clienteVO = new ClienteVO();
 				clienteVO.setIdCliente(Integer.parseInt(resultado.getString(1)));
 				clienteVO.setNome(resultado.getString(2));
@@ -144,23 +142,23 @@ public class ClienteDAO {
 		return clientesVO;
 	}
 
-	public ClienteVO consultarClienteDAO(ClienteVO clienteVO) {
+	public ArrayList<ClienteVO> consultarClienteDAO(ClienteVO clienteVO) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
-		ClienteVO cliente =  new ClienteVO();
-		
+		ArrayList<ClienteVO> retorno = new ArrayList<ClienteVO>();
+
+
 		String query = "SELECT * FROM cliente WHERE idcliente = " +clienteVO.getIdCliente();
 		
 		try {
 			resultado = stmt.executeQuery(query);
-			while(resultado.next()){ //percorer ate o fim da tabela sem saber o tamaho
-				
+		    	ClienteVO cliente = new ClienteVO();
 				cliente.setIdCliente(Integer.parseInt(resultado.getString(1)));
 				cliente.setNome(resultado.getString(2));
 				cliente.setCpf(resultado.getString(3));
-									
-			}
+				retorno.add(cliente);
+
 			
 		} catch (SQLException e) {
 			System.out.println("Erro ao executar a Consulta do clientes.");
@@ -169,7 +167,7 @@ public class ClienteDAO {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
 		}				
-		return cliente;	
+		return retorno;
 		
 	}
 

@@ -13,7 +13,7 @@ public class Banco {
 	private static final String banco = "dbfarmacia";
 	private static final String conexao = "jdbc:mysql://localhost:3306/" + banco;
 	private static final String user = "root";
-	private static final String password = "senha";
+	private static final String password = "";
 	
 	public static Connection getConnection(){
 		try {

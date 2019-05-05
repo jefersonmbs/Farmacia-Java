@@ -106,10 +106,12 @@ public class MenuCliente {
 				ClienteDTO dto = new ClienteDTO();
 				System.out.print("\nInforme o código do Cliente: ");
 				dto.setIdCliente(entrada.nextInt());
-				ClienteDTO clienteDTO = controladoraCliente.consultarTodosClientesController(dto);	
+				ArrayList<ClienteDTO> clienteDTO = controladoraCliente.consultarClientesController(dto);
 				System.out.println("\n-------- RESULTADO DA CONSULTA --------");
 				System.out.printf("\n%3s  %-20s  %-30s  \n", "ID" , "NOME" , "CPF" );
-				clienteDTO.imprimir();
+				for(int i = 0 ; i < clienteDTO.size(); i++){
+					clienteDTO.get(i).imprimir();
+				}
 			}
 			default:{
 				System.out.println("\nOpção Inválida");

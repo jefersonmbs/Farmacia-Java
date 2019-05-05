@@ -71,10 +71,10 @@ public class ClienteBO {
 		return clientesVO;
 	}
 
-	public ClienteVO consultarClienteBO(ClienteVO clienteVO) {
+	public ArrayList<ClienteVO> consultarClienteBO(ClienteVO clienteVO) {
 		
 		ClienteDAO clienteDAO = new ClienteDAO();
-		ClienteVO resultado = clienteDAO.consultarClienteDAO(clienteVO);
+		ArrayList<ClienteVO> resultado = clienteDAO.consultarClienteDAO(clienteVO);
 		if(resultado == null){
 			System.out.println("\nCliente não Localizado!");
 		}
