@@ -3,11 +3,12 @@ package model.bo;
 
 
 import model.dao.ProdutoDAO;
-import model.vo.ProdutoVO;;
+import model.vo.ProdutoVO;
+import java.sql.SQLException;
 
 public class ProdutoBO {
 
-	public void cadastrarProdutoBO(ProdutoVO produtoVO) {
+	public void cadastrarProdutoBO(ProdutoVO produtoVO) throws SQLException {
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		if (produtoDAO.exiseRegistroPorNome(produtoVO.getNome())) {
 			System.out.println("\nProduto já cadastrado");
@@ -25,10 +26,10 @@ public class ProdutoBO {
 	public void excluirProdutoBO(ProdutoVO produtoVO) {
 		
 		ProdutoDAO produtoDAO = new ProdutoDAO();
-		if(produtoDAO.exiseRegistroPorNome(produtoVO.getNome())){
+		if(produtoDAO.exiseRegistroPorId(produtoVO.getIdProduto())){
 			int resulado = produtoDAO.excluirProdutoDAO(produtoVO);
 			if(resulado == 1){
-		    System.out.println("\nCliProduto excluído com Sucesso!");
+		    System.out.println("\nProduto excluído com Sucesso!");
 		} else {
 			System.out.println("\nNão foi possivel excluir Produto!");
 		}

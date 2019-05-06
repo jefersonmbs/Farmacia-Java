@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -9,7 +10,7 @@ import view.ProdutoDTO;
 
 public class ControladoraProduto {
 
-	public void cadastrarProdutoController(ProdutoDTO dto) {
+	public void cadastrarProdutoController(ProdutoDTO dto) throws SQLException {
 		ProdutoVO produtoVO = new ProdutoVO();
 		produtoVO.setNome(dto.getNome());
 		produtoVO.setPreco(dto.getPreco());

@@ -153,12 +153,13 @@ public class ClienteDAO {
 		
 		try {
 			resultado = stmt.executeQuery(query);
-		    	ClienteVO cliente = new ClienteVO();
+			while(resultado.next()) {
+				ClienteVO cliente = new ClienteVO();
 				cliente.setIdCliente(Integer.parseInt(resultado.getString(1)));
 				cliente.setNome(resultado.getString(2));
 				cliente.setCpf(resultado.getString(3));
 				retorno.add(cliente);
-
+			}
 			
 		} catch (SQLException e) {
 			System.out.println("Erro ao executar a Consulta do clientes.");

@@ -1,12 +1,13 @@
 package view;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
 	
 	Scanner entrada = new Scanner(System.in);
 
-	public void apresentaMenu() {
+	public void apresentaMenu() throws SQLException	 {
 		
 		System.out.println("Sistema - Farmácia Senac");
 		System.out.println("\nOpções:");

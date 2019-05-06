@@ -1,5 +1,6 @@
 package view;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import controller.ControladoraCliente;
@@ -12,9 +13,9 @@ public class MenuProduto {
 	
 	Scanner entrada = new Scanner(System.in);
 
-	public void apresentaMenuProduto() {
+	public void apresentaMenuProduto() throws SQLException {
 		
-		System.out.println("\n\nSistema - Farmácia Senac" + "\n-------- Menu Produto --------");
+		System.out.println("\n\nSistema - Farmácia" + "\n-------- Menu Produto --------");
 		System.out.println("\nOpções: ");
 		System.out.println("1 - Cadastrar Produto");
 		System.out.println("2 - Consultar Produto");
@@ -52,7 +53,7 @@ public class MenuProduto {
 		}
 		}
 		
-		System.out.println("\n\nSistema - Farmácia Senac" + "\n-------- Menu Produto --------");
+		System.out.println("\n\nSistema - Farmácia " + "\n-------- Menu Produto --------");
 		System.out.println("\nOpções: ");
 		System.out.println("1 - Cadastrar Produto");
 		System.out.println("2 - Consultar Produto");
@@ -90,7 +91,7 @@ public class MenuProduto {
 	}
 
 	private void consultaProduto() {
-		System.out.println("\n\n\n\n\n==========Sistema - Farmácia Senac===============" + "\n-------- Menu Cliente --------");
+		System.out.println("\n\n\n\n\n==========Sistema - Farmácia ===============" + "\n-------- Menu Cliente --------");
 		System.out.println("\nOpções: ");
 		System.out.println("1 - Cadastrar Produto");
 		System.out.println("2 - Consultar Produto");
@@ -163,17 +164,18 @@ public class MenuProduto {
 		
 	}
 
-	private void cadastrarProduto() {
+	private void cadastrarProduto() throws SQLException {
 		entrada.nextLine();
 		ProdutoDTO dto = new ProdutoDTO();
 		System.out.print("\nDigite o seu nome do produto: ");
 		dto.setNome(entrada.nextLine());
 		System.out.println("\nDigite o valor do Produto:");
 		dto.setPreco(entrada.nextDouble());
-		System.out.println("\nDigite o estoque minimo:");
-		dto.setEstoqueMinimo(entrada.nextInt());
 		System.out.println("\nDigite o estoque atual:");
 		dto.setEstoqueAtual(entrada.nextInt());
+		System.out.println("\nDigite o estoque minimo:");
+		dto.setEstoqueMinimo(entrada.nextInt());
+
 		
 		
 		

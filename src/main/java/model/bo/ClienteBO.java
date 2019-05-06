@@ -75,7 +75,8 @@ public class ClienteBO {
 		
 		ClienteDAO clienteDAO = new ClienteDAO();
 		ArrayList<ClienteVO> resultado = clienteDAO.consultarClienteDAO(clienteVO);
-		if(resultado == null){
+
+		if(resultado.isEmpty()){
 			System.out.println("\nCliente não Localizado!");
 		}
 		return resultado;

@@ -75,7 +75,7 @@ public class ControladoraCliente {
 		clienteVO.setIdCliente(dto.getIdCliente());
 
 		ClienteBO clienteBO = new ClienteBO();
-		ArrayList<ClienteVO> clientesVO = clienteBO.consultarTodosClientesBO();
+		ArrayList<ClienteVO> clientesVO = clienteBO.consultarClienteBO(clienteVO);
 		ArrayList<ClienteDTO> listaDTO = new ArrayList<ClienteDTO>();
 
 		for(int  i = 0;i < clientesVO.size();i++){
