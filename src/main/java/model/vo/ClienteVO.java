@@ -1,53 +1,52 @@
 package model.vo;
 
 public class ClienteVO {
-	private int idCliente;
-	private String nome;
-	private String cpf;
-	
-	
-public ClienteVO(int idCliente, String nome, String cpf) {
-		super();
-		this.idCliente = idCliente;
-		this.nome = nome;
-		this.cpf = cpf;
-	}
+    private int idCliente;
+    private String nome;
+    private String cpf;
 
 
-	public ClienteVO() {
-		super();
-	}
+    public ClienteVO(int idCliente, String nome, String cpf) {
+        super();
+        this.idCliente = idCliente;
+        this.nome = nome;
+        this.cpf = cpf;
+    }
 
 
-	public int getIdCliente() {
-		return idCliente;
-	}
+    public ClienteVO() {
+        super();
+    }
 
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
+    public int getIdCliente() {
+        return idCliente;
+    }
 
 
-	public String getNome() {
-		return nome;
-	}
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
 
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
 
-	public String getCpf() {
-		return cpf;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
 
 }

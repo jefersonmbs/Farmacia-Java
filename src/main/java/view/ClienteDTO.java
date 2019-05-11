@@ -51,9 +51,9 @@ public ClienteDTO(int idCliente, String nome, String cpf) {
 
 
 	public void imprimir() {
-		
+
 		System.out.printf("\n%3d  %-20s  %-30s  \n",
-				this.getIdCliente(),this.getNome(),this.getCpf());
+				this.getIdCliente(), this.getNome(), this.getCpf());
 		
 	}
 	
