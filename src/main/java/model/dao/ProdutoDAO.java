@@ -1,7 +1,9 @@
 package model.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 
+import model.vo.ClienteVO;
 import model.vo.ProdutoVO;;
 
 public class ProdutoDAO {
@@ -105,10 +107,9 @@ public class ProdutoDAO {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		int resultado = 0;
-		
-				
+
 		String querry = "UPDATE PRODUTO SET nome = '" + produtoVO.getNome() + "',"
-				+ "valorunitario ='" + produtoVO.getPreco() + "' "
+				+ "preco ='" + produtoVO.getPreco() + "' "
 				+ " WHERE idproduto = " + produtoVO.getIdProduto();
 		try {
 			resultado = stmt.executeUpdate(querry);
@@ -117,13 +118,50 @@ public class ProdutoDAO {
 		}finally {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
-			
 		}
-		
 		return resultado;
 	}
-	
+
+	public void  atualizarEstoqueDAO(ProdutoVO produtoVO) throws SQLException {
+		Connection conn = Banco.getConnection();
+
+		String sql = "update produto set estoqueAtual= estoqueAtual + ? where idProduto=?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,produtoVO.getEstoqueAtual());
+			stmt.setInt(2,produtoVO.getIdProduto());
+			stmt.execute();
+			stmt.close();
+		}catch (SQLException e){
+			throw new RuntimeException(e);
+		}
+
 	}
+
+	public ArrayList<ProdutoVO> consultarEstoqueDAO(ProdutoVO produtoVO) throws SQLException {
+		Connection conn = Banco.getConnection();
+		String sql = "select * from produto where idProduto=?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, produtoVO.getIdProduto());
+			ArrayList<ProdutoVO> produtoVOS = new ArrayList<ProdutoVO>();
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()){
+				ProdutoVO produto = new ProdutoVO();
+				produto.setEstoqueAtual(Integer.parseInt(rs.getString(4)));
+				produtoVOS.add(produto);
+
+			}
+			rs.close();
+			stmt.close();
+			return produtoVOS;
+		}catch (SQLException e){
+			throw new RuntimeException(e);
+		}
+
+	}
+}
 
 
 

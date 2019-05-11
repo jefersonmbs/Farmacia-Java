@@ -5,6 +5,7 @@ package model.bo;
 import model.dao.ProdutoDAO;
 import model.vo.ProdutoVO;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ProdutoBO {
 
@@ -43,7 +44,7 @@ public class ProdutoBO {
 	public void atulizarProdutoBO(ProdutoVO produtoVO) {
 		
 		ProdutoDAO produtoDAO = new ProdutoDAO();
-		if(produtoDAO.exiseRegistroPorNome(produtoVO.getNome())){
+		if(produtoDAO.exiseRegistroPorId(produtoVO.getIdProduto())){
 			int resultado = produtoDAO.atualizarProdutoDAO(produtoVO);
 			if(resultado==1){
 				System.out.println("\nProduto atualizado com Sucesso");
@@ -51,13 +52,20 @@ public class ProdutoBO {
 				System.out.println("\nNão foi possivel atualizar Produto");
 			}
 		}
-		
-				
-		
-		
-		
 	}
 
+	public void atulizarEstoqueBO(ProdutoVO produtoVO) throws SQLException {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		produtoDAO.atualizarEstoqueDAO(produtoVO);
+	}
 
+	public ArrayList<ProdutoVO> consultarEstoqueBO(ProdutoVO produtoVO) throws SQLException{
 
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		ArrayList<ProdutoVO> resultado = produtoDAO.consultarEstoqueDAO(produtoVO);
+		if (resultado.isEmpty()){
+			System.out.println("\nNada encontrador");
+		}
+		return resultado;
+	}
 }

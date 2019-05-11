@@ -20,8 +20,9 @@ public class MenuProduto {
 		System.out.println("1 - Cadastrar Produto");
 		System.out.println("2 - Consultar Produto");
 		System.out.println("3 - Atualizar Produto");
-		System.out.println("4 - Excluir Produto");
-		System.out.println("5 - Sair");
+		System.out.println("4 - Atualizar Estoque");
+		System.out.println("5 - Excluir Produto");
+		System.out.println("6 - Sair");
 		System.out.println("\nDigite a Opção: ");
 		
 		int opcao  = entrada.nextInt();
@@ -30,7 +31,7 @@ public class MenuProduto {
 	
 
 	
-	while(opcao != 5) {
+	while(opcao != 6) {
 		switch(opcao){
 		case 1: {
 			this.cadastrarProduto();
@@ -45,9 +46,13 @@ public class MenuProduto {
 			break;
 		}
 		case 4: {
-			this.excluirProduto();
+			this.atualizarEstoque();
 			break;
 		}
+			case 5:{
+				this.excluirProduto();
+				break;
+			}
 		default:{
 			System.out.println("\nOpção Inválida");
 		}
@@ -58,8 +63,9 @@ public class MenuProduto {
 		System.out.println("1 - Cadastrar Produto");
 		System.out.println("2 - Consultar Produto");
 		System.out.println("3 - Atualizar Produto");
-		System.out.println("4 - Excluir Produto");
-		System.out.println("5 - Sair");
+		System.out.println("4 - Atualizar Estoque");
+		System.out.println("5 - Excluir Produto");
+		System.out.println("6 - Sair");
 		System.out.println("\nDigite a Opção: ");
 		
 		opcao  = entrada.nextInt();
@@ -82,12 +88,24 @@ public class MenuProduto {
 	private void atualizarProduto() {
 		ProdutoDTO dto = new ProdutoDTO();
 		System.out.println("\nInforme o código doproduto: ");
-		
+		dto.setIdProduto(entrada.nextInt());
+		System.out.println("\nInforme o novo nome do produto: ");
+		dto.setNome(entrada.next());
+		System.out.println("\nInforme o novo preço: ");
+		dto.setPreco(entrada.nextDouble());
 		ControladoraProduto controladoraProduto = new ControladoraProduto();
 		controladoraProduto.atualizarProdutoController(dto);
-		
-				
-		
+	}
+
+	private void atualizarEstoque() throws SQLException{
+		ProdutoDTO dto = new ProdutoDTO();
+		ControladoraProduto controladoraProduto = new ControladoraProduto();
+		System.out.println("\nInforme o código do produto: ");
+		dto.setIdProduto(entrada.nextInt());
+		System.out.println("\nInfome o quantida para adicionar ao estoque: ");
+		dto.setEstoqueAtual(entrada.nextInt());
+
+		controladoraProduto.atualizarEstoqueController(dto);
 	}
 
 	private void consultaProduto() {

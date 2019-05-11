@@ -52,11 +52,34 @@ public class ControladoraProduto {
 	}
 	public void atualizarProdutoController(ProdutoDTO dto){
 		ProdutoVO produtoVO = new ProdutoVO();
+		produtoVO.setIdProduto(dto.getIdProduto());
 		produtoVO.setNome(dto.getNome());
 		produtoVO.setPreco(dto.getPreco());
 		ProdutoBO produtoBO = new ProdutoBO();
 		produtoBO.atulizarProdutoBO(produtoVO);
 	}
-			
 
+
+	public void atualizarEstoqueController(ProdutoDTO dto) throws SQLException {
+		ProdutoVO produtoVO = new ProdutoVO();
+		produtoVO.setIdProduto(dto.getIdProduto());
+		produtoVO.setEstoqueAtual(dto.getEstoqueAtual());
+		ProdutoBO produtoBO = new ProdutoBO();
+		produtoBO.atulizarEstoqueBO(produtoVO);
+	}
+
+	public ArrayList<ProdutoDTO> consultarEstoqueController(ProdutoDTO dto)throws SQLException {
+		ProdutoVO produtoVO = new ProdutoVO();
+		produtoVO.setIdProduto(dto.getIdProduto());
+		ProdutoBO produtoBO = new ProdutoBO();
+		ArrayList<ProdutoVO> produtosVO = produtoBO.consultarEstoqueBO(produtoVO);
+		ArrayList<ProdutoDTO> listadto = new ArrayList<ProdutoDTO>();
+
+		for (int i = 0; i< produtosVO.size();i++){
+			ProdutoDTO produtoDTO = new ProdutoDTO();
+			produtoDTO.setEstoqueAtual(produtosVO.get(i).getEstoqueAtual());
+			listadto.add(produtoDTO);
+		}
+		return  listadto;
+	}
 }

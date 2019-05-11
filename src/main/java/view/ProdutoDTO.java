@@ -84,6 +84,12 @@ public class ProdutoDTO {
 	public void setEstoqueMinimo(int estoqueMinimo) {
 		this.estoqueMinimo = estoqueMinimo;
 	}
+
+	public void acresentarEstoque(int qauntidade){
+
+		estoqueAtual = estoqueAtual + qauntidade;
+
+	}
 	
 	public void imprimir() {
 		
