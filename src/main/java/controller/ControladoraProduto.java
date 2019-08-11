@@ -22,10 +22,30 @@ public class ControladoraProduto {
 
     }
 
-    public ArrayList<ProdutoDTO> consultarTodosProdutosController() {
+    public ArrayList<ProdutoDTO> consultarTodosProdutosController() throws SQLException {
         // TODO Auto-generated method stub
-        return null;
+
+        ProdutoBO produtoBO = new ProdutoBO();
+        ArrayList<ProdutoVO>  produtoVO = produtoBO.consultaroTodosProdutos();
+        ArrayList<ProdutoDTO> listDTO = new ArrayList<ProdutoDTO>();
+
+
+        for (int i = 0; i < produtoVO.size(); i++) {
+            ProdutoDTO produtoDTO = new ProdutoDTO();
+            produtoDTO.setIdProduto(produtoVO.get(i).getIdProduto());
+            produtoDTO.setNome(produtoVO.get(i).getNome());
+            produtoDTO.setPreco(produtoVO.get(i).getPreco());
+            produtoDTO.setEstoqueAtual(produtoVO.get(i).getEstoqueAtual());
+            produtoDTO.setEstoqueMinimo(produtoVO.get(i).getEstoqueMinimo());
+
+            listDTO.add(produtoDTO);
+
+        }
+
+
+        return listDTO;
     }
+
 
     public ProdutoDTO consultarTodosProdutosController(ProdutoDTO dto) {
         // TODO Auto-generated method stub

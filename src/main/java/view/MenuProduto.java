@@ -105,27 +105,24 @@ public class MenuProduto {
         controladoraProduto.atualizarEstoqueController(dto);
     }
 
-    private void consultaProduto() {
-        System.out.println("\n\n\n\n\n==========Sistema - Farmácia ===============" + "\n-------- Menu Cliente --------");
-        System.out.println("\nOpções: ");
-        System.out.println("1 - Cadastrar Produto");
-        System.out.println("2 - Consultar Produto");
-        System.out.println("3 - Atualizar Produto");
-        System.out.println("4 - Excluir Produto");
-        System.out.println("5 - Sair");
-        System.out.println("\nDigite a Opção: ");
+    private void consultaProduto()  throws  SQLException{
+
+        System.out.println("\nInforme o tipo de consulta a ser realizada");
+        System.out.println("1 - Consultar todos os produtos");
+        System.out.println("2 - Consultar um produto Específico");
+        System.out.println("3 - Sair");
+        System.out.println("\nDigite a opção: ");
 
         int opcao = entrada.nextInt();
 
         ControladoraProduto controladoraProduto = new ControladoraProduto();
-        while (opcao != 5) {
+        while (opcao != 3) {
             switch (opcao) {
                 case 1: {
                     ArrayList<ProdutoDTO> produtoDTO = controladoraProduto.consultarTodosProdutosController();
 
                     System.out.println("\n-------- RESULTADO DA CONSULTA --------");
-                    System.out.printf("\n%3d  %-20s  %4d  %5d  %6d  ", "ID", "NOME", "EstoqueAtual", "EstoqueMinimo", "Preco");
-
+                    System.out.printf("ID      NOME           PREÇO    EstoqueAtual   EstoqueMinimo");
 
                     for (int i = 0; i < produtoDTO.size(); i++) {
                         produtoDTO.get(i).imprimir();
@@ -142,36 +139,22 @@ public class MenuProduto {
                     System.out.printf("\n%3d  %-20s  %4d  %5d  %6d   \n", "ID", "NOME", "EstoqueAtual", "EstoqueMinimo", "Preco");
                     produtoDTO.imprimir();
                 }
-                case 3: {
-                    ProdutoDTO dto = new ProdutoDTO();
-                    System.out.print("\nInforme o código do Produto: ");
-                    dto.setIdProduto(entrada.nextInt());
-                    entrada.nextLine();
-                    System.out.println("\nDigite o nome do produto: ");
-                    dto.setNome(entrada.nextLine());
-                    System.out.println("\nDigite o valor do protudo: ");
-                    dto.setPreco(entrada.nextDouble());
-
-
-                    ControladoraProduto controladoraProduto2 = new ControladoraProduto();
-                    controladoraProduto2.atualizarProdutoController(dto);
-
-
-                }
                 default: {
                     System.out.println("\nOpção Inválida");
                 }
             }
+
             System.out.println("\nInforme o tipo de consulta a ser realizada");
-            System.out.println("1 - Consultar todos os Clientes");
-            System.out.println("2 - Consultar um Cliente Específico");
+            System.out.println("1 - Consultar todos os produtos");
+            System.out.println("2 - Consultar um produto Específico");
             System.out.println("3 - Sair");
             System.out.println("\nDigite a opção: ");
+            opcao = entrada.nextInt();
 
         }
 
 
-        System.out.println("\nCliente consultado com sucesso");
+        System.out.println("\nProduto consultado com sucesso");
 
 
     }

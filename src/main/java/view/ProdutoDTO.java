@@ -76,9 +76,9 @@ public class ProdutoDTO {
 
     public void imprimir() {
 
-        System.out.printf("\n%3d  %-20s  %4d %5d %6d  \n",
-                this.getIdProduto(), this.getNome(), this.getEstoqueAtual(), this.getEstoqueMinimo()
-                , this.getPreco());
+        System.out.printf("\n%3d  %-20s  %.2f %5d %6d  \n",
+                this.getIdProduto(), this.getNome(),this.getPreco(), this.getEstoqueAtual(), this.getEstoqueMinimo()
+                 );
 
     }
 

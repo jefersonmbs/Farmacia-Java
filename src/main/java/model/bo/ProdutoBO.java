@@ -68,4 +68,13 @@ public class ProdutoBO {
         }
         return resultado;
     }
+
+    public ArrayList<ProdutoVO> consultaroTodosProdutos() throws SQLException {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        ArrayList<ProdutoVO> produtoVOS = produtoDAO.consultarTodosProdutosDAO();
+        if (produtoVOS.isEmpty()) {
+            System.out.println("Não foi possivel fazer");
+        }
+        return produtoVOS;
+    }
 }

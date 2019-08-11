@@ -56,16 +56,18 @@ public class ProdutoDAO {
     public int cadastrarProdutoDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
 
+
         int resultado = 0;
 
-        String sql = "insert into produto " +
+        String sql = "INSERT INTO produto " +
                 "(nome,preco,estoqueAtual,estoqueMinimo) " +
-                "values (?,?,?,?)";
+                "VALUES (?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, produtoVO.getNome());
         stmt.setDouble(2, produtoVO.getPreco());
         stmt.setInt(3, produtoVO.getEstoqueAtual());
         stmt.setInt(4, produtoVO.getEstoqueMinimo());
+
 		
 		/*String query = "INSERT INTO produto (nome, preco,estoqueAtual,estoqueMinimo) VALUES ('" + produtoVO.getNome() + "', '"
 		+ produtoVO.getPreco() + "','"
@@ -73,14 +75,15 @@ public class ProdutoDAO {
 		+ produtoVO.getEstoqueMinimo() + "')";*/
 
         try {
-
-            stmt.execute();
-            stmt.close();
+            resultado = stmt.executeUpdate(sql);
 
         } catch (SQLException e) {
             System.out.println("Erro ao executar a Incerção do Produto.");
+        } finally {
+            stmt.execute();
+            stmt.close();
         }
-
+        // System.out.println("Resultado" + resultado);
         return resultado;
     }
 
@@ -125,9 +128,10 @@ public class ProdutoDAO {
     public void atualizarEstoqueDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
 
-        String sql = "update produto set estoqueAtual= estoqueAtual + ? where idProduto=?";
+        String sql = "update produto set estoqueAtual = estoqueAtual + ? where idProduto=?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
+            // Passagem de valor para adicionar ao estoque atual
             stmt.setInt(1, produtoVO.getEstoqueAtual());
             stmt.setInt(2, produtoVO.getIdProduto());
             stmt.execute();
@@ -160,6 +164,37 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public ArrayList<ProdutoVO> consultarTodosProdutosDAO() {
+        Connection conn = Banco.getConnection();
+
+        ResultSet resultado = null;
+        ArrayList<ProdutoVO> produtoVOS = new ArrayList<ProdutoVO>();
+
+        String sql = "SELECT * FROM produto ORDER BY idProduto";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            resultado = stmt.executeQuery(sql);
+            while (resultado.next()) {
+
+                ProdutoVO produtoVO = new ProdutoVO();
+                produtoVO.setIdProduto(Integer.parseInt(resultado.getString(1)));
+                produtoVO.setNome(resultado.getString(2));
+                produtoVO.setPreco(Double.parseDouble(resultado.getString(3)));
+                produtoVO.setEstoqueAtual(Integer.parseInt(resultado.getString(4)));
+                produtoVO.setEstoqueMinimo(Integer.parseInt(resultado.getString(5)));
+                produtoVOS.add(produtoVO);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao consultar produtos");
+        } finally {
+            Banco.closeResultSet(resultado);
+            Banco.closeConnection(conn);
+        }
+
+        return produtoVOS;
     }
 }
 
