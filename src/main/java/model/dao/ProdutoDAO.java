@@ -42,7 +42,7 @@ public class ProdutoDAO {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao executar a verificação por nome.");
+            System.out.println("Erro ao executar a verificação por id.");
             return true;
         } finally {
             Banco.closeResultSet(resultados);
@@ -55,35 +55,35 @@ public class ProdutoDAO {
 
     public int cadastrarProdutoDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
+        Statement stmt = Banco.getStatement(conn);
 
 
         int resultado = 0;
 
-        String sql = "INSERT INTO produto " +
-                "(nome,preco,estoqueAtual,estoqueMinimo) " +
-                "VALUES (?,?,?,?)";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, produtoVO.getNome());
-        stmt.setDouble(2, produtoVO.getPreco());
-        stmt.setInt(3, produtoVO.getEstoqueAtual());
-        stmt.setInt(4, produtoVO.getEstoqueMinimo());
+        /*String sql = "INSERT INTO produto (nome,preco,estoqueAtual,estoqueMinimo) VALUES (?,?,?,?)";
+        PreparedStatement stmt1 = conn.prepareStatement(sql);
+        stmt1.setString(1, produtoVO.getNome());
+        stmt1.setDouble(2, produtoVO.getPreco());
+        stmt1.setInt(3, produtoVO.getEstoqueAtual());
+        stmt1.setInt(4, produtoVO.getEstoqueMinimo());*/
 
 		
-		/*String query = "INSERT INTO produto (nome, preco,estoqueAtual,estoqueMinimo) VALUES ('" + produtoVO.getNome() + "', '"
+		String query = "INSERT INTO produto (nome, preco,estoqueAtual,estoqueMinimo) VALUES ('" + produtoVO.getNome() + "', '"
 		+ produtoVO.getPreco() + "','"
 		+ produtoVO.getEstoqueAtual()+ "','"
-		+ produtoVO.getEstoqueMinimo() + "')";*/
+		+ produtoVO.getEstoqueMinimo() + "')";
 
         try {
-            resultado = stmt.executeUpdate(sql);
+
+            resultado = stmt.executeUpdate(query);
 
         } catch (SQLException e) {
             System.out.println("Erro ao executar a Incerção do Produto.");
         } finally {
-            stmt.execute();
-            stmt.close();
+            Banco.closePreparedStatement(stmt);
+            Banco.closeConnection(conn);
         }
-        // System.out.println("Resultado" + resultado);
+
         return resultado;
     }
 
