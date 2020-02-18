@@ -55,35 +55,18 @@ public class ProdutoDAO {
 
     public int cadastrarProdutoDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
-
-
         int resultado = 0;
-
-        /*String sql = "INSERT INTO produto (nome,preco,estoqueAtual,estoqueMinimo) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO produto (nome,preco,estoqueAtual,estoqueMinimo) VALUES (?,?,?,?)";
         PreparedStatement stmt1 = conn.prepareStatement(sql);
         stmt1.setString(1, produtoVO.getNome());
         stmt1.setDouble(2, produtoVO.getPreco());
         stmt1.setInt(3, produtoVO.getEstoqueAtual());
-        stmt1.setInt(4, produtoVO.getEstoqueMinimo());*/
-
-		
-		String query = "INSERT INTO produto (nome, preco,estoqueAtual,estoqueMinimo) VALUES ('" + produtoVO.getNome() + "', '"
-		+ produtoVO.getPreco() + "','"
-		+ produtoVO.getEstoqueAtual()+ "','"
-		+ produtoVO.getEstoqueMinimo() + "')";
-
+        stmt1.setInt(4, produtoVO.getEstoqueMinimo());
         try {
-
-            resultado = stmt.executeUpdate(query);
-
-        } catch (SQLException e) {
+            resultado = stmt1.executeUpdate();
+        }catch (Exception e){
             System.out.println("Erro ao executar a Incerção do Produto.");
-        } finally {
-            Banco.closePreparedStatement(stmt);
-            Banco.closeConnection(conn);
         }
-
         return resultado;
     }
 
@@ -128,7 +111,7 @@ public class ProdutoDAO {
     public void atualizarEstoqueDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
 
-        String sql = "update produto set estoqueAtual = estoqueAtual + ? where idProduto=?";
+        String sql = "UPDATE produto SET estoqueAtual = estoqueAtual + ? WHERE idProduto=?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             // Passagem de valor para adicionar ao estoque atual
@@ -144,7 +127,7 @@ public class ProdutoDAO {
 
     public ArrayList<ProdutoVO> consultarEstoqueDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        String sql = "select * from produto where idProduto=?";
+        String sql = "SELECT * FROM produto WHERE idProduto=?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, produtoVO.getIdProduto());
