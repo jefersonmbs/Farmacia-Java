@@ -43,7 +43,7 @@ public class ClienteBO {
 
     }
 
-    public void atulizarClienteBO(ClienteVO clienteVO) {
+    public void atulizarClienteBO(ClienteVO clienteVO) throws SQLException {
 
         ClienteDAO clienteDAO = new ClienteDAO();
         if (clienteDAO.existeRegistroPorCliente(clienteVO.getIdCliente())) {

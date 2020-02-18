@@ -39,10 +39,11 @@ public class ClienteDAO {
         int resultado = 0;
         try{
             resultado = stmt.executeUpdate();
+            stmt.close();
+
         }catch (Exception e){
             System.out.println("Não foi Possivél cadastra o Usuário");
         }
-
         return resultado;
     }
 
@@ -51,7 +52,7 @@ public class ClienteDAO {
         Statement stmt = Banco.getStatement(conn);
         ResultSet resultados = null;
 
-        String query = "SELECT * FROM cliente WHERE idcliente = " + idCliente;
+        String query = "SELECT * FROM cliente WHERE id = " + idCliente;
         try {
             resultados = stmt.executeQuery(query);
             if (resultados.next()) {
@@ -59,7 +60,6 @@ public class ClienteDAO {
             }
         } catch (SQLException e) {
             System.out.println("Erro ao executar a verificação por ID.");
-            return false;
         } finally {
             Banco.closeResultSet(resultados);
             Banco.closeStatement(stmt);
@@ -73,7 +73,7 @@ public class ClienteDAO {
         Statement stmt = Banco.getStatement(conn);
         int resultado = 0;
 
-        String query = "DELETE FROM cliente WHERE idcliente = " + clienteVO.getIdCliente();
+        String query = "DELETE FROM cliente WHERE id = " + clienteVO.getIdCliente();
 
         try {
             resultado = stmt.executeUpdate(query);
@@ -87,23 +87,22 @@ public class ClienteDAO {
         return resultado;
     }
 
-    public int atualizarClienteDAO(ClienteVO clienteVO) {
+    public int atualizarClienteDAO(ClienteVO clienteVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
+
         int resultado = 0;
 
-        String query = "UPDATE cliente  SET nome = '" + clienteVO.getNome() + "', "
-                + "cpf = '" + clienteVO.getCpf() + "' "
-                + " WHERE idcliente = " + clienteVO.getIdCliente();
-
+        String query = "UPDATE cliente  SET nome = ? , cpf = ? WHERE id = ?";
+        assert conn != null;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, clienteVO.getNome());
+        stmt.setString(2,clienteVO.getCpf());
+        stmt.setInt(3,clienteVO.getIdCliente());
         try {
-            resultado = stmt.executeUpdate(query);
-        } catch (SQLException e) {
-            System.out.println("Erro ao executar a Atualização do client.");
-
-        } finally {
-            Banco.closePreparedStatement(stmt);
-            Banco.closeConnection(conn);
+            resultado = stmt.executeUpdate();
+            stmt.close();
+        }catch (Exception e){
+            System.out.println("Não foi Possivél Atualizar o Cliente");
         }
 
         return resultado;

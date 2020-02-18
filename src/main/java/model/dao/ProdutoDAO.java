@@ -64,6 +64,7 @@ public class ProdutoDAO {
         stmt1.setInt(4, produtoVO.getEstoqueMinimo());
         try {
             resultado = stmt1.executeUpdate();
+            stmt1.close();
         }catch (Exception e){
             System.out.println("Erro ao executar a Incerção do Produto.");
         }

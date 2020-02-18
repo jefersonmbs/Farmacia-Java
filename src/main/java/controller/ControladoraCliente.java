@@ -22,7 +22,7 @@ public class ControladoraCliente {
 
     }
 
-    public void atualizarClienteController(ClienteDTO dto) {
+    public void atualizarClienteController(ClienteDTO dto) throws SQLException {
 
         ClienteVO clienteVO = new ClienteVO();
         clienteVO.setIdCliente(dto.getIdCliente());

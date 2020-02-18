@@ -130,7 +130,7 @@ public class MenuCliente {
 
     }
 
-    private void atualizarCliente() {
+    private void atualizarCliente() throws SQLException {
 
 
         ClienteDTO dto = new ClienteDTO();
