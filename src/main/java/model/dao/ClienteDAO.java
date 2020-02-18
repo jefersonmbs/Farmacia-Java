@@ -115,7 +115,7 @@ public class ClienteDAO {
         ResultSet resultado = null;
         ArrayList<ClienteVO> clientesVO = new ArrayList<ClienteVO>();
 
-        String query = "SELECT * FROM cliente order by  idcliente";
+        String query = "SELECT * FROM cliente order by  id";
 
         try {
             resultado = stmt.executeQuery(query);
@@ -144,7 +144,7 @@ public class ClienteDAO {
         ArrayList<ClienteVO> retorno = new ArrayList<ClienteVO>();
 
 
-        String query = "SELECT * FROM cliente WHERE idcliente = " + clienteVO.getIdCliente();
+        String query = "SELECT * FROM cliente WHERE id = " + clienteVO.getIdCliente();
 
         try {
             resultado = stmt.executeQuery(query);
