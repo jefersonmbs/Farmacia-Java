@@ -3,7 +3,7 @@
 #
 
 
-CREATE TABLE `cliente` IF IF NOT EXISTS (
+CREATE TABLE `cliente` IF NOT EXISTS (
   `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `cpf` varchar(11) NOT NULL,
