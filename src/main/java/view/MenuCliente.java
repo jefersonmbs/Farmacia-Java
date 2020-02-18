@@ -94,8 +94,8 @@ public class MenuCliente {
                     System.out.println("\n-------- RESULTADO DA CONSULTA --------");
                     System.out.printf("\n%3s  %-20s  %-30s  \n", "ID", "NOME", "CPF");
 
-                    for (int i = 0; i < clienteDTO.size(); i++) {
-                        clienteDTO.get(i).imprimir();
+                    for (ClienteDTO dto : clienteDTO) {
+                        dto.imprimir();
 
                     }
                     break;
@@ -107,8 +107,8 @@ public class MenuCliente {
                     ArrayList<ClienteDTO> clienteDTO = controladoraCliente.consultarClientesController(dto);
                     System.out.println("\n-------- RESULTADO DA CONSULTA --------");
                     System.out.printf("\n%3s  %-20s  %-30s  \n", "ID", "NOME", "CPF");
-                    for (int i = 0; i < clienteDTO.size(); i++) {
-                        clienteDTO.get(i).imprimir();
+                    for (ClienteDTO value : clienteDTO) {
+                        value.imprimir();
                     }
                 }
                 default: {
