@@ -8,25 +8,24 @@ import view.ClienteDTO;
 
 public class ClienteDAO {
 
-    public boolean existeRegistroPorCpf(String cpf) {
+    public boolean existeRegistroPorCpf(String cpf) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
         ResultSet resultados = null;
 
-        String query = "SELECT * FROM cliente WHERE cpf = '" + cpf + "'";
+        String query = "SELECT * FROM cliente WHERE cpf =?";
+        assert conn != null;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, cpf);
         try {
-            resultados = stmt.executeQuery(query);
+            resultados = stmt.executeQuery();
             if (resultados.next()) {
                 return true;
             }
         } catch (SQLException e) {
             System.out.println("Erro ao executar a verificação por CPF.");
             return true;
-        } finally {
-            Banco.closeResultSet(resultados);
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
         return false;
     }
 
@@ -47,24 +46,22 @@ public class ClienteDAO {
         return resultado;
     }
 
-    public boolean existeRegistroPorCliente(int idCliente) {
+    public boolean existeRegistroPorCliente(int idCliente) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
         ResultSet resultados = null;
 
-        String query = "SELECT * FROM cliente WHERE id = " + idCliente;
+        String query = "SELECT * FROM cliente WHERE id =?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, idCliente);
         try {
-            resultados = stmt.executeQuery(query);
+            resultados = stmt.executeQuery();
             if (resultados.next()) {
                 return true;
             }
         } catch (SQLException e) {
             System.out.println("Erro ao executar a verificação por ID.");
-        } finally {
-            Banco.closeResultSet(resultados);
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
         return false;
     }
 
@@ -118,8 +115,6 @@ public class ClienteDAO {
         String query = "SELECT * FROM cliente order by  id";
         assert conn != null;
         PreparedStatement stmt = conn.prepareStatement(query);
-
-
         try {
             resultado = stmt.executeQuery();
             while (resultado.next()) { //percorer ate o fim da tabela sem saber o tamanho
@@ -132,11 +127,8 @@ public class ClienteDAO {
 
         } catch (SQLException e) {
             System.out.println("Erro ao executar a Consulta do clientes.");
-        } finally {
-            Banco.closeResultSet(resultado);
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
         return clientesVO;
     }
 
