@@ -8,47 +8,46 @@ import model.vo.ProdutoVO;;
 
 public class ProdutoDAO {
 
-    public boolean exiseRegistroPorNome(String nome) {
+    public boolean exiseRegistroPorNome(String nome) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
+
         ResultSet resultados = null;
 
-        String query = "SELECT * FROM produto WHERE nome = '" + nome + "'";
+        String query = "SELECT * FROM produto WHERE nome =?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1,nome);
         try {
-            resultados = stmt.executeQuery(query);
+            resultados = stmt.executeQuery();
             if (resultados.next()) {
                 return true;
             }
         } catch (SQLException e) {
             System.out.println("Erro ao executar a verificação por nome.");
             return true;
-        } finally {
-            Banco.closeResultSet(resultados);
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
         return false;
     }
 
-    public boolean exiseRegistroPorId(int id) {
+    public boolean exiseRegistroPorId(int id) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
+
         ResultSet resultados = null;
 
-        String query = "SELECT * FROM produto WHERE idProduto = '" + id + "'";
+        String query = "SELECT * FROM produto WHERE idProduto =?";
+        assert conn != null;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, id);
         try {
-            resultados = stmt.executeQuery(query);
+            resultados = stmt.executeQuery();
             if (resultados.next()) {
                 return true;
             }
         } catch (SQLException e) {
             System.out.println("Erro ao executar a verificação por id.");
             return true;
-        } finally {
-            Banco.closeResultSet(resultados);
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
         return false;
     }
 
@@ -71,41 +70,42 @@ public class ProdutoDAO {
         return resultado;
     }
 
-    public int excluirProdutoDAO(ProdutoVO produtoVO) {
+    public int excluirProdutoDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
+
         int resultado = 0;
 
-        String query = "DELETE FROM produto WHERE idProduto = " + produtoVO.getIdProduto();
+        String query = "DELETE FROM produto WHERE idProduto =?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, produtoVO.getIdProduto());
 
         try {
-            resultado = stmt.executeUpdate(query);
+            resultado = stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao excluir o produto.");
-        } finally {
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
 
         return resultado;
     }
 
-    public int atualizarProdutoDAO(ProdutoVO produtoVO) {
+    public int atualizarProdutoDAO(ProdutoVO produtoVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
+
         int resultado = 0;
 
-        String querry = "UPDATE PRODUTO SET nome = '" + produtoVO.getNome() + "',"
-                + "preco ='" + produtoVO.getPreco() + "' "
-                + " WHERE idproduto = " + produtoVO.getIdProduto();
+        String querry = "UPDATE PRODUTO SET nome =? , preco =? WHERE idproduto = ?";
+        assert conn != null;
+        PreparedStatement stmt = conn.prepareStatement(querry);
+        stmt.setString(1,produtoVO.getNome());
+        stmt.setDouble(2,produtoVO.getPreco());
+        stmt.setInt(3,produtoVO.getIdProduto());
         try {
-            resultado = stmt.executeUpdate(querry);
+            resultado = stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao executar a Atualização do produto.");
-        } finally {
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
         return resultado;
     }
 

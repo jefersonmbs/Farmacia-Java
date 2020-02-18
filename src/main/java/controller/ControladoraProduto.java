@@ -58,7 +58,7 @@ public class ControladoraProduto {
         return null;
     }
 
-    public void excluirProdutoController(ProdutoDTO dto) {
+    public void excluirProdutoController(ProdutoDTO dto) throws SQLException {
 
         ProdutoVO produtoVO = new ProdutoVO();
         produtoVO.setIdProduto(dto.getIdProduto());
@@ -69,7 +69,7 @@ public class ControladoraProduto {
 
     }
 
-    public void atualizarProdutoController(ProdutoDTO dto) {
+    public void atualizarProdutoController(ProdutoDTO dto) throws SQLException {
         ProdutoVO produtoVO = new ProdutoVO();
         produtoVO.setIdProduto(dto.getIdProduto());
         produtoVO.setNome(dto.getNome());

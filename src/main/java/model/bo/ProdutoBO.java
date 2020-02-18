@@ -24,7 +24,7 @@ public class ProdutoBO {
         }
     }
 
-    public void excluirProdutoBO(ProdutoVO produtoVO) {
+    public void excluirProdutoBO(ProdutoVO produtoVO) throws SQLException {
 
         ProdutoDAO produtoDAO = new ProdutoDAO();
         if (produtoDAO.exiseRegistroPorId(produtoVO.getIdProduto())) {
@@ -41,7 +41,7 @@ public class ProdutoBO {
 
     }
 
-    public void atulizarProdutoBO(ProdutoVO produtoVO) {
+    public void atulizarProdutoBO(ProdutoVO produtoVO) throws SQLException {
 
         ProdutoDAO produtoDAO = new ProdutoDAO();
         if (produtoDAO.exiseRegistroPorId(produtoVO.getIdProduto())) {
@@ -51,6 +51,8 @@ public class ProdutoBO {
             } else {
                 System.out.println("\nNão foi possivel atualizar Produto");
             }
+        }else{
+            System.out.println("\nProduto não encontrado");
         }
     }
 

@@ -71,7 +71,7 @@ public class MenuProduto {
 
     }
 
-    private void excluirProduto() {
+    private void excluirProduto() throws SQLException {
         ProdutoDTO dto = new ProdutoDTO();
         System.out.print("\nInforme o código do Produto: ");
         dto.setIdProduto(entrada.nextInt());
@@ -82,7 +82,7 @@ public class MenuProduto {
 
     }
 
-    private void atualizarProduto() {
+    private void atualizarProduto() throws SQLException {
         ProdutoDTO dto = new ProdutoDTO();
         System.out.println("\nInforme o código doproduto: ");
         dto.setIdProduto(entrada.nextInt());
