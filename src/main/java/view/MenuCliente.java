@@ -1,5 +1,6 @@
 package view;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ public class MenuCliente {
     Scanner entrada = new Scanner(System.in);
 
 
-    public void apresentaMenuCliente() {
+    public void apresentaMenuCliente() throws SQLException {
 
         System.out.println("\n\nSistema - Farmácia Senac" + "\n-------- Menu Cliente --------");
         System.out.println("\nOpções: ");
@@ -61,7 +62,7 @@ public class MenuCliente {
         }
     }
 
-    private void cadastrarCliente() {
+    private void cadastrarCliente() throws SQLException {
         entrada.nextLine();
         ClienteDTO dto = new ClienteDTO();
         System.out.print("\nDigite o seu nome: ");

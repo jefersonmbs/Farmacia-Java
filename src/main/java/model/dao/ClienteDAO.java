@@ -30,23 +30,17 @@ public class ClienteDAO {
         return false;
     }
 
-    public int cadastrarClienteDAO(ClienteVO clienteVO) {
+    public int cadastrarClienteDAO(ClienteVO clienteVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
+        String query = "INSERT INTO cliente (nome, cpf) VALUES (?,?)";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1,clienteVO.getNome());
+        stmt.setString(2,clienteVO.getCpf());
         int resultado = 0;
-
-        String query = "INSERT INTO cliente (nome, cpf) VALUES ('" + clienteVO.getNome() + "', '"
-                + clienteVO.getCpf() + "')";
-
-        try {
-
-            resultado = stmt.executeUpdate(query);
-
-        } catch (SQLException e) {
-            System.out.println("Erro ao executar a Incerção do Cliente.");
-        } finally {
-            Banco.closePreparedStatement(stmt);
-            Banco.closeConnection(conn);
+        try{
+            resultado = stmt.executeUpdate();
+        }catch (Exception e){
+            System.out.println("Não foi Possivél cadastra o Usuário");
         }
 
         return resultado;

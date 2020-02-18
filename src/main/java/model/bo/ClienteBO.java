@@ -1,5 +1,6 @@
 package model.bo;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.dao.ClienteDAO;
@@ -7,7 +8,7 @@ import model.vo.ClienteVO;
 
 public class ClienteBO {
 
-    public void cadastrarClienteBO(ClienteVO clienteVO) {
+    public void cadastrarClienteBO(ClienteVO clienteVO) throws SQLException {
         ClienteDAO clienteDAO = new ClienteDAO();
         if (clienteDAO.existeRegistroPorCpf(clienteVO.getCpf())) {
             System.out.println("\nCliente já cadastrado!");

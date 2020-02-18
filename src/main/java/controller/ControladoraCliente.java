@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.bo.ClienteBO;
@@ -8,7 +9,7 @@ import view.ClienteDTO;
 
 public class ControladoraCliente {
 
-    public void cadastrarClienteController(ClienteDTO dto) {
+    public void cadastrarClienteController(ClienteDTO dto) throws SQLException {
 
 
         ClienteVO clienteVO = new ClienteVO();
