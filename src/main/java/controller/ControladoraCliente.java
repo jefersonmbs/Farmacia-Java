@@ -46,7 +46,7 @@ public class ControladoraCliente {
 
     }
 
-    public ArrayList<ClienteDTO> consultarTodosClientesController() {
+    public ArrayList<ClienteDTO> consultarTodosClientesController() throws SQLException {
 
         ClienteBO clienteBO = new ClienteBO();
         ArrayList<ClienteVO> clientesVO = clienteBO.consultarTodosClientesBO();
@@ -66,7 +66,7 @@ public class ControladoraCliente {
         return listaDTO;
     }
 
-    public ArrayList<ClienteDTO> consultarClientesController(ClienteDTO dto) {
+    public ArrayList<ClienteDTO> consultarClientesController(ClienteDTO dto) throws SQLException {
 
 
         ClienteVO clienteVO = new ClienteVO();

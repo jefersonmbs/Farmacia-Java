@@ -60,7 +60,7 @@ public class ClienteBO {
 
     }
 
-    public ArrayList<ClienteVO> consultarTodosClientesBO() {
+    public ArrayList<ClienteVO> consultarTodosClientesBO() throws SQLException {
 
         ClienteDAO clienteDAO = new ClienteDAO();
         ArrayList<ClienteVO> clientesVO = clienteDAO.consultarTodosClientesDAO();
@@ -70,7 +70,7 @@ public class ClienteBO {
         return clientesVO;
     }
 
-    public ArrayList<ClienteVO> consultarClienteBO(ClienteVO clienteVO) {
+    public ArrayList<ClienteVO> consultarClienteBO(ClienteVO clienteVO) throws SQLException {
 
         ClienteDAO clienteDAO = new ClienteDAO();
         ArrayList<ClienteVO> resultado = clienteDAO.consultarClienteDAO(clienteVO);

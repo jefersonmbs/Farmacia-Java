@@ -109,16 +109,19 @@ public class ClienteDAO {
         return resultado;
     }
 
-    public ArrayList<ClienteVO> consultarTodosClientesDAO() {
+    public ArrayList<ClienteVO> consultarTodosClientesDAO() throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
+
         ResultSet resultado = null;
         ArrayList<ClienteVO> clientesVO = new ArrayList<ClienteVO>();
 
         String query = "SELECT * FROM cliente order by  id";
+        assert conn != null;
+        PreparedStatement stmt = conn.prepareStatement(query);
+
 
         try {
-            resultado = stmt.executeQuery(query);
+            resultado = stmt.executeQuery();
             while (resultado.next()) { //percorer ate o fim da tabela sem saber o tamanho
                 ClienteVO clienteVO = new ClienteVO();
                 clienteVO.setIdCliente(Integer.parseInt(resultado.getString(1)));
@@ -137,17 +140,19 @@ public class ClienteDAO {
         return clientesVO;
     }
 
-    public ArrayList<ClienteVO> consultarClienteDAO(ClienteVO clienteVO) {
+    @SuppressWarnings("Duplicates")
+    public ArrayList<ClienteVO> consultarClienteDAO(ClienteVO clienteVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
         ResultSet resultado = null;
         ArrayList<ClienteVO> retorno = new ArrayList<ClienteVO>();
 
 
-        String query = "SELECT * FROM cliente WHERE id = " + clienteVO.getIdCliente();
-
+        String query = "SELECT * FROM cliente WHERE id =?";
+        assert conn != null;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1,clienteVO.getIdCliente());
         try {
-            resultado = stmt.executeQuery(query);
+            resultado = stmt.executeQuery();
             while (resultado.next()) {
                 ClienteVO cliente = new ClienteVO();
                 cliente.setIdCliente(Integer.parseInt(resultado.getString(1)));
@@ -158,11 +163,8 @@ public class ClienteDAO {
 
         } catch (SQLException e) {
             System.out.println("Erro ao executar a Consulta do clientes.");
-        } finally {
-            Banco.closeResultSet(resultado);
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
+        stmt.close();
         return retorno;
 
     }

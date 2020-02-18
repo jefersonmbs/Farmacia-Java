@@ -76,7 +76,7 @@ public class MenuCliente {
 
     }
 
-    private void consultaCliente() {
+    private void consultaCliente() throws SQLException {
 
         System.out.println("\nInforme o tipo de consulta a ser realizada");
         System.out.println("1 - Consultar todos os Clientes");
