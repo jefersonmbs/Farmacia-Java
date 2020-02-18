@@ -30,13 +30,13 @@ public class ControladoraProduto {
         ArrayList<ProdutoDTO> listDTO = new ArrayList<ProdutoDTO>();
 
 
-        for (int i = 0; i < produtoVO.size(); i++) {
+        for (ProdutoVO vo : produtoVO) {
             ProdutoDTO produtoDTO = new ProdutoDTO();
-            produtoDTO.setIdProduto(produtoVO.get(i).getIdProduto());
-            produtoDTO.setNome(produtoVO.get(i).getNome());
-            produtoDTO.setPreco(produtoVO.get(i).getPreco());
-            produtoDTO.setEstoqueAtual(produtoVO.get(i).getEstoqueAtual());
-            produtoDTO.setEstoqueMinimo(produtoVO.get(i).getEstoqueMinimo());
+            produtoDTO.setIdProduto(vo.getIdProduto());
+            produtoDTO.setNome(vo.getNome());
+            produtoDTO.setPreco(vo.getPreco());
+            produtoDTO.setEstoqueAtual(vo.getEstoqueAtual());
+            produtoDTO.setEstoqueMinimo(vo.getEstoqueMinimo());
 
             listDTO.add(produtoDTO);
 
@@ -94,9 +94,9 @@ public class ControladoraProduto {
         ArrayList<ProdutoVO> produtosVO = produtoBO.consultarEstoqueBO(produtoVO);
         ArrayList<ProdutoDTO> listadto = new ArrayList<ProdutoDTO>();
 
-        for (int i = 0; i < produtosVO.size(); i++) {
+        for (ProdutoVO vo : produtosVO) {
             ProdutoDTO produtoDTO = new ProdutoDTO();
-            produtoDTO.setEstoqueAtual(produtosVO.get(i).getEstoqueAtual());
+            produtoDTO.setEstoqueAtual(vo.getEstoqueAtual());
             listadto.add(produtoDTO);
         }
         return listadto;

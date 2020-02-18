@@ -52,11 +52,11 @@ public class ControladoraCliente {
         ArrayList<ClienteVO> clientesVO = clienteBO.consultarTodosClientesBO();
         ArrayList<ClienteDTO> listaDTO = new ArrayList<ClienteDTO>();
 
-        for (int i = 0; i < clientesVO.size(); i++) {
+        for (ClienteVO clienteVO : clientesVO) {
             ClienteDTO clienteDTO = new ClienteDTO();
-            clienteDTO.setIdCliente(clientesVO.get(i).getIdCliente());
-            clienteDTO.setNome(clientesVO.get(i).getNome());
-            clienteDTO.setCpf(clientesVO.get(i).getCpf());
+            clienteDTO.setIdCliente(clienteVO.getIdCliente());
+            clienteDTO.setNome(clienteVO.getNome());
+            clienteDTO.setCpf(clienteVO.getCpf());
 
             listaDTO.add(clienteDTO);
 
@@ -76,11 +76,11 @@ public class ControladoraCliente {
         ArrayList<ClienteVO> clientesVO = clienteBO.consultarClienteBO(clienteVO);
         ArrayList<ClienteDTO> listaDTO = new ArrayList<ClienteDTO>();
 
-        for (int i = 0; i < clientesVO.size(); i++) {
+        for (ClienteVO vo : clientesVO) {
             ClienteDTO clienteDTO = new ClienteDTO();
-            clienteDTO.setIdCliente(clientesVO.get(i).getIdCliente());
-            clienteDTO.setNome(clientesVO.get(i).getNome());
-            clienteDTO.setCpf(clientesVO.get(i).getCpf());
+            clienteDTO.setIdCliente(vo.getIdCliente());
+            clienteDTO.setNome(vo.getNome());
+            clienteDTO.setCpf(vo.getCpf());
 
             listaDTO.add(clienteDTO);
 

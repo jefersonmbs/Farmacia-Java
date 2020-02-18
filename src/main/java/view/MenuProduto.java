@@ -124,8 +124,8 @@ public class MenuProduto {
                     System.out.println("\n-------- RESULTADO DA CONSULTA --------");
                     System.out.printf("ID      NOME           PREÇO    EstoqueAtual   EstoqueMinimo");
 
-                    for (int i = 0; i < produtoDTO.size(); i++) {
-                        produtoDTO.get(i).imprimir();
+                    for (ProdutoDTO dto : produtoDTO) {
+                        dto.imprimir();
 
                     }
                     break;
