@@ -148,7 +148,7 @@ public class MenuCliente {
 
     }
 
-    private void excluirCliente() {
+    private void excluirCliente() throws SQLException {
 
         ClienteDTO dto = new ClienteDTO();
         System.out.print("\nInforme o código do Cliente: ");

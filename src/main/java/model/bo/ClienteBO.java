@@ -26,7 +26,7 @@ public class ClienteBO {
 
     }
 
-    public void excluirClienteBO(ClienteVO clienteVO) {
+    public void excluirClienteBO(ClienteVO clienteVO) throws SQLException {
 
         ClienteDAO clienteDAO = new ClienteDAO();
         if (clienteDAO.existeRegistroPorCliente(clienteVO.getIdCliente())) {

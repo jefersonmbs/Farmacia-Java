@@ -35,7 +35,7 @@ public class ControladoraCliente {
 
     }
 
-    public void excluirClienteController(ClienteDTO dto) {
+    public void excluirClienteController(ClienteDTO dto) throws SQLException {
 
         ClienteVO clienteVO = new ClienteVO();
         clienteVO.setIdCliente(dto.getIdCliente());

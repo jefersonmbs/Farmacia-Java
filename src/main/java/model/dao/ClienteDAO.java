@@ -68,20 +68,21 @@ public class ClienteDAO {
         return false;
     }
 
-    public int excluirClienteDAO(ClienteVO clienteVO) {
+    public int excluirClienteDAO(ClienteVO clienteVO) throws SQLException {
         Connection conn = Banco.getConnection();
-        Statement stmt = Banco.getStatement(conn);
         int resultado = 0;
-
-        String query = "DELETE FROM cliente WHERE id = " + clienteVO.getIdCliente();
-
+        String query = "DELETE FROM cliente WHERE id =?";
+        assert conn != null;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1,clienteVO.getIdCliente());
         try {
-            resultado = stmt.executeUpdate(query);
-        } catch (SQLException e) {
+            resultado = stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException  e) {
+
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        }catch (Exception e){
             System.out.println("Erro ao expluir o cliente.");
-        } finally {
-            Banco.closeStatement(stmt);
-            Banco.closeConnection(conn);
         }
 
         return resultado;
