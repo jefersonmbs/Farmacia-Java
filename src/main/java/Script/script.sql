@@ -31,11 +31,11 @@ INSERT INTO `cliente` ( `nome`, `cpf`) VALUES ( 'Rahsaan Cole PhD', '92757064430
 DROP TABLE IF EXISTS `produto`;
 
 CREATE TABLE `produto` (
-  `idProduto` varchar(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idProduto` int(9) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `preco` decimal(10,2) unsigned NOT NULL,
   `estoqueAtual` int(11) unsigned,
-  `estoqueMinimo` int(11) unsigned,
+  `estoqueMinimo` int(11) ,
   KEY `idProduto` (`idProduto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
